@@ -19,28 +19,27 @@ import java.util.Optional;
 @RequestMapping("/workers")
 public class WorkerController {
 
-
-    private Logger logger = LoggerFactory.getLogger(WorkerController.class);
-
-    @Autowired
-    private Environment env;
+    private static final Logger logger = LoggerFactory.getLogger(WorkerController.class);
 
     @Autowired
     private WorkerService workerService;
 
+    @Autowired
+    private Environment env;  // para pegar a porta atual
 
     @GetMapping
     public ResponseEntity<List<Worker>> findAll(){
+        String port = env.getProperty("server.port");
+        logger.info("Requisição findAll recebida na instância da porta: {}", port);
 
         return workerService.findByAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Worker>> findById(@PathVariable Long id) {
-
-        logger.info("PORT= " + env.getProperty("local.server.port"));
+        String port = env.getProperty("server.port");
+        logger.info("Requisição findById recebida na instância da porta: {} | workerId: {}", port, id);
 
         return workerService.findById(id);
     }
-
 }
