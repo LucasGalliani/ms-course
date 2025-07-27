@@ -26,7 +26,8 @@ public class WorkerService {
     }
 
 
-    public ResponseEntity<Optional<Worker>> findById(Long id){
+    public ResponseEntity<Optional<Worker>> findById(Long id) throws InterruptedException {
+
 
         Optional<Worker> worker = workerRepository.findById(id);
 

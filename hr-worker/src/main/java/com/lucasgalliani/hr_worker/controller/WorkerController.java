@@ -36,9 +36,7 @@ public class WorkerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Worker>> findById(@PathVariable Long id) {
-        String port = env.getProperty("server.port");
-        logger.info("Requisição findById recebida na instância da porta: {} | workerId: {}", port, id);
+    public ResponseEntity<Optional<Worker>> findById(@PathVariable Long id) throws InterruptedException {
 
         return workerService.findById(id);
     }
